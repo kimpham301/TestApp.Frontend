@@ -5,9 +5,6 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
-env: 
-  SONAR_ORG: kim-pham
-  SONAR_PROJECTKEY: kimpham301_TestApp.Frontend
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -24,7 +21,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.organization=$SONAR_ORG
+            -Dsonar.organization=kim-pham
             -Dsonar.projectKey=kimpham301_TestApp.Frontend
             -Dsonar.sources=src
         env:

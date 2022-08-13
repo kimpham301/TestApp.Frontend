@@ -5,6 +5,9 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+env: 
+  SONAR_ORG: kim-pham
+  SONAR_PROJECTKEY: kimpham301_TestApp.Frontend
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -16,13 +19,13 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Test and coverage
-        run: yarn test
+        run: yarn test--passWithNoTests
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.organization=myOrg
-            -Dsonar.projectKey=myProjectKey
+            -Dsonar.organization=$SONAR_ORG
+            -Dsonar.projectKey=$SONAR_PROJECTKEY
             -Dsonar.sources=src
             -Dsonar.tests=src
             -Dsonar.test.inclusions=src/**/__tests__/**

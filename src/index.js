@@ -1,12 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { ContextProvider } from "./hooks/useStateConText";
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#353053',
+    },
+    secondary: {
+      main: '#353053',
+    },
+  },
+});
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <ContextProvider>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline>
+        <App />
+      </CssBaseline>
+    </ThemeProvider>
+    </ContextProvider>
+  </React.StrictMode>
+);
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

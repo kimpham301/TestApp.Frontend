@@ -25,10 +25,9 @@ import {
             email: values.email,
             password: values.password
         }
-        const url = 'https://localhost:7045/Users/register';
       e.preventDefault();
       if (validate()){
-        axios.post(url, data).then((result)=>{
+        axios.post('/Users/register', data).then((result)=>{
             alert(result.data);
         }).catch((errors)=>{
             alert(errors);

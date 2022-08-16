@@ -1,7 +1,9 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
+import axios from "../api/axios"
 
 export default function Home(){
+ 
     return(
-        <div>Home</div>
+        <div>home</div>
     )
 }

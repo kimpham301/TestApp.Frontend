@@ -7,46 +7,54 @@ import {
   Typography,
 } from "@mui/material";
 import useForm from "../hooks/useForm";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Center from "./Center";
-import axios from "axios";
-import {BrowserRouter as Router, Link} from "react-router-dom";
+import axios from "../api/axios";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import AuthContext from "../hooks/AuthProvider";
 
 const getNewModel = () => ({
   email: " ",
   password: "",
 });
 
-export default function Login() {
+export default function Login(history) {
+  const {setUser, user} = useContext(AuthContext);
   const { values, setValues, errors, setErrors, handleInputChange } =
     useForm(getNewModel);
 
-  const UserLogin = (e) => {
-    const data = {
-      email: values.email,
-      password: values.password
-    };
-    const url = "https://localhost:7045/Users/login";
-    e.preventDefault();
-    if (validate()) {
-      axios
-        .post(url, data)
-        .then((result) => {
-          alert("Login successfully");
-        })
-        .catch((errors) => {
-          alert(errors);
-        });
-    }
-  };
-
-  const validate = () => {
+    const validate = () => {
     let temp = {};
     temp.email = /\S+@\S+\.\S+/.test(values.email) ? "" : "Email is not valid.";
     temp.password = values.password != "" ? "" : "This field is required.";
     setErrors(temp);
     return Object.values(temp).every((x) => x == "");
-  };
+    };
+
+  const UserLogin = async (e) => {
+    e.preventDefault();
+    if (validate()) {
+     try{
+            const result = await axios.post("/users/login", {
+      email: values.email,
+      password: values.password,
+    });
+    const userData={ 
+        ...user,
+        isLoggedIn: true,
+        user_id: result.data.user_id,
+        password: result.data.password,
+        token: result.data.token,
+        roles: result.data.roles
+    };
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    history.push('/');}
+    catch(error){
+            alert(error);
+        }
+    };
+};
 
   return (
     <Center>
@@ -93,10 +101,10 @@ export default function Login() {
                 Login
               </Button>
               <Link to="/Users/register">
-              <Button variant="text" size="small">
-              Don't have an account ? Sign up  
+                <Button variant="text" size="small">
+                  Don't have an account ? Sign up
                 </Button>
-                </Link>
+              </Link>
             </form>
           </Box>
         </CardContent>

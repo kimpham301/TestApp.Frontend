@@ -4,9 +4,12 @@ import './App.css';
 import React from 'react';
 import Register from './components/Register';
 import Home from './components/Home';
+import { AuthProvider } from "./hooks/AuthProvider";
+
 function App() {
   return (
     <div className="App">
+      <AuthProvider>
       <Router>
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -14,6 +17,7 @@ function App() {
         <Route path='/Users/register' element={<Register />} />
       </Routes>
       </Router>
+      </AuthProvider>
     </div>
   );
 }

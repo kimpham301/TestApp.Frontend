@@ -1,24 +1,62 @@
 import Login from './components/Login';
 import  { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Register from './components/Register';
 import Home from './components/Home';
-import { AuthProvider } from "./hooks/AuthProvider";
+import Authenticate from "./components/Authenticate";
+import Layout from "./components/Layout";
+import Quiz from "./components/Quiz";
+import Result from "./components/Result";
+import AuthContext from "./hooks/AuthProvider";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import CreateQuestion from "./components/CreateQuestion"
 
 function App() {
+    const [user, setUser] = useState({ isLoggedIn: false });
+    useEffect(() => {
+        let userStorage = localStorage.getItem("user");
+        if (userStorage) {
+            userStorage = JSON.parse(userStorage);
+            setUser(userStorage);
+        }
+    }, []);
+    console.log(user)
+    const darkTheme = createTheme({
+        palette: {
+            background: {
+                default: "#414254",},
+            primary: {
+                light: '#757ce8',
+                main: '#000000',
+                dark: '#002884',
+                contrastText: '#fff',
+            },
+        },
+    });
   return (
-    <div className="App">
-      <AuthProvider>
+          <ThemeProvider theme={darkTheme}>
+              <CssBaseline>
+      <AuthContext.Provider value={{ user, setUser }}>
       <Router>
       <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/Users/login' element={<Login />} />
-        <Route path='/Users/register' element={<Register />} />
+
+          <Route path='/createTest' element={<CreateQuestion />} />
+          <Route path='/' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route element={<Authenticate />} >
+            <Route path="/" element={<Layout />} >
+                <Route path='/home' element={<Home />} />
+                <Route path='/tests' element={<Quiz />} />
+                <Route path='/result' element={<Result />} />
+            </Route>
+          </Route>
       </Routes>
       </Router>
-      </AuthProvider>
-    </div>
+    </AuthContext.Provider>
+</CssBaseline>
+</ThemeProvider>
   );
 }
 

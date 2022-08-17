@@ -7,60 +7,69 @@ import {
   Typography,
 } from "@mui/material";
 import useForm from "../hooks/useForm";
-import React, { useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Center from "./Center";
 import axios from "../api/axios";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import {Link, Navigate, Outlet} from "react-router-dom"
+import { useNavigate } from "react-router";
 import AuthContext from "../hooks/AuthProvider";
 
 const getNewModel = () => ({
-  email: " ",
+  email: "",
   password: "",
 });
 
-export default function Login(history) {
-  const {setUser, user} = useContext(AuthContext);
-  const { values, setValues, errors, setErrors, handleInputChange } =
+export default function Login() {
+    const { setUser, user } = useContext(AuthContext);
+    const { values, errors, setErrors, handleInputChange } =
     useForm(getNewModel);
+    const navigate = useNavigate()
+
+    if (user.isLoggedIn == true)
+        navigate('home')
 
     const validate = () => {
     let temp = {};
     temp.email = /\S+@\S+\.\S+/.test(values.email) ? "" : "Email is not valid.";
-    temp.password = values.password != "" ? "" : "This field is required.";
+    temp.password = values.password !== "" ? "" : "This field is required.";
     setErrors(temp);
-    return Object.values(temp).every((x) => x == "");
+    return Object.values(temp).every((x) => x === "");
     };
 
   const UserLogin = async (e) => {
     e.preventDefault();
-    if (validate()) {
-     try{
-            const result = await axios.post("/users/login", {
-      email: values.email,
-      password: values.password,
-    });
-    const userData={ 
-        ...user,
-        isLoggedIn: true,
-        user_id: result.data.user_id,
-        password: result.data.password,
-        token: result.data.token,
-        roles: result.data.roles
-    };
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
-    history.push('/');}
-    catch(error){
-            alert(error);
-        }
-    };
-};
+      if (validate()){
+      try {
+          const res = await axios.post("users/login", {
+              email: values.email,
+              password: values.password
+          });
+
+          const userData = {
+              ...user,
+              isLoggedIn: true,
+              user_id: res.data.user_id,
+              token: res.data.token,
+              roles_id: res.data.roles_id,
+          };
+
+          setUser(userData);
+
+          localStorage.setItem("user", JSON.stringify(userData));
+          navigate('/home')
+
+      } catch (error) {
+          alert(error);
+      }
+  }}
+
 
   return (
     <Center>
-      <Card sx={{ maxwidth: 450 }}>
+      <Card>
+          <center>
         <CardContent>
-          <Typography variant="h3" sx={{ my: 3 }}>
+          <Typography variant="h3" sx={{ my: 3, textAlign: "center",}}>
             Test App
           </Typography>
           <Box
@@ -100,7 +109,7 @@ export default function Login(history) {
               <Button type="submit" variant="contained" size="large">
                 Login
               </Button>
-              <Link to="/Users/register">
+              <Link to="/register">
                 <Button variant="text" size="small">
                   Don't have an account ? Sign up
                 </Button>
@@ -108,6 +117,7 @@ export default function Login(history) {
             </form>
           </Box>
         </CardContent>
+      </center>
       </Card>
     </Center>
   );

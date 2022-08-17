@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
-import { Accordion, AccordionDetails, AccordionSummary, CardMedia, Chip, List, ListItem, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import React from 'react'
+import { Accordion, AccordionDetails, AccordionSummary, List, ListItem, Typography, Box } from '@mui/material';
 import { red, green,grey } from '@mui/material/colors';
 
 export default function Answer({qnAnswers}) {

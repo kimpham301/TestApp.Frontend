@@ -1,11 +1,4 @@
-import {
-  TextField,
-  Button,
-  Box,
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import {TextField, Button, Box, Card, CardContent, Typography} from "@mui/material";
 import useForm from "../hooks/useForm";
 import React, { useEffect, useContext } from "react";
 import Center from "./Center";
@@ -25,7 +18,7 @@ export default function Login() {
     useForm(getNewModel);
     const navigate = useNavigate()
 
-    if (user.isLoggedIn == true)
+    if (user.isLoggedIn === true)
         navigate('home')
 
     const validate = () => {

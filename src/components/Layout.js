@@ -2,7 +2,6 @@ import { AppBar, Button, Container, Toolbar, Typography, Tooltip } from '@mui/ma
 import React, {useContext} from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import AuthContext from '../hooks/AuthProvider'
-import {Link} from 'react-router-dom'
 
 export default function Layout() {
     const { user, setUser } = useContext(AuthContext)

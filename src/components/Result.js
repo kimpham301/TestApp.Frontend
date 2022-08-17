@@ -38,9 +38,6 @@ export default function Result() {
         }, 0)
         setScore(tempScore)
     }
-console.log(user.timeTaken)
-    console.log(JSON.parse(localStorage.getItem("user")).user_id)
-    console.log(score)
     const restart = () => {
         setUser({
             timeTaken: 0,
@@ -72,7 +69,7 @@ console.log(user.timeTaken)
             <Card sx={{ mt: 5, display: 'flex', flexDirection: 'column', width: '100%', maxWidth: 640, mx: 'auto', textAlign: "center" }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                     <CardContent sx={{ flex: '1 0 auto', textAlign: 'center' }}>
-                        <Typography variant="h4">Congratulations!</Typography>
+                        <Typography variant="h4">{score > 3 ? 'Congratulations!' : 'Try Harder'}</Typography>
                         <Typography variant="h6">
                             YOUR SCORE
                         </Typography>

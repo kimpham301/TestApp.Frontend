@@ -91,7 +91,7 @@ const getNewModel = () => ({
                 <Button type="submit" variant="contained" size="large">
                   Register
                 </Button>
-                <Link to="/">
+                <Link style={{ textDecoration: 'none'}} to="/">
                 <Button variant="text" size="small">
               Already have an account ? Log in
                 </Button>

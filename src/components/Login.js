@@ -1,9 +1,9 @@
 import {TextField, Button, Box, Card, CardContent, Typography} from "@mui/material";
 import useForm from "../hooks/useForm";
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Center from "./Center";
 import axios from "../api/axios";
-import {Link, Navigate, Outlet} from "react-router-dom"
+import {Link} from "react-router-dom"
 import { useNavigate } from "react-router";
 import AuthContext from "../hooks/AuthProvider";
 
@@ -63,7 +63,7 @@ export default function Login() {
           <center>
         <CardContent>
           <Typography variant="h3" sx={{ my: 3, textAlign: "center",}}>
-            Test App
+            Quiz App
           </Typography>
           <Box
             sx={{
@@ -102,7 +102,7 @@ export default function Login() {
               <Button type="submit" variant="contained" size="large">
                 Login
               </Button>
-              <Link to="/register">
+              <Link style={{ textDecoration: 'none'}} to="/register">
                 <Button variant="text" size="small">
                   Don't have an account ? Sign up
                 </Button>

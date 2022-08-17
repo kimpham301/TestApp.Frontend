@@ -1,10 +1,10 @@
-import { AppBar, Button, Container, Toolbar, Typography, Tooltip } from '@mui/material'
+import { AppBar, Button, Container, Toolbar, Typography } from '@mui/material'
 import React, {useContext} from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import AuthContext from '../hooks/AuthProvider'
 
 export default function Layout() {
-    const { user, setUser } = useContext(AuthContext)
+    const { setUser } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const logout = () => {

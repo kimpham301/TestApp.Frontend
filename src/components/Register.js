@@ -21,7 +21,7 @@ const getNewModel = () => ({
           e.preventDefault();
           if(validate()){
           try {
-              const res = await axios.post("users/login", {
+              const res = await axios.post("users/register", {
                   email: values.email,
                   password: values.password
               });

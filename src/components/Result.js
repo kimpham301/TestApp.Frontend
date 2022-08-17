@@ -30,7 +30,7 @@ export default function Result() {
 
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [user.selectedOptions])
 
     const calculateScore = qna => {
         let tempScore = qna.reduce((acc, curr) => {
@@ -38,6 +38,7 @@ export default function Result() {
         }, 0)
         setScore(tempScore)
     }
+    console.log(qnAnswers)
     const restart = () => {
         setUser({
             timeTaken: 0,
@@ -45,21 +46,22 @@ export default function Result() {
         })
         navigate("/tests")
     }
-    const submitScore = async () => {
-       await Axios
-            .put(`users/${JSON.parse(localStorage.getItem("user")).user_id}`,{
-                user_id: user.user_id,
-                score: score,
-                timeTaken: user.timeTaken
-            })
-           .then(res => {
-               setShowAlert(true)
-               setTimeout(() => {
-                   setShowAlert(false)
-               }, 4000);
-           })
-           .catch(err => { console.log(err) })
-    }
+    // const submitScore = async () => {
+    //    await Axios
+    //         .put(`users/${JSON.parse(localStorage.getItem("user")).user_id}`,{
+    //             user_id:user.user_id,
+    //             score: score,
+    //             timeTaken: user.timeTaken
+    //         })
+    //        .then(res => {
+    //            setShowAlert(true)
+    //            setTimeout(() => {
+    //                setShowAlert(false)
+    //            }, 4000);
+    //            console.log(res.data)
+    //        })
+    //        .catch(err => { console.log(err) })
+    // }
 
     const getFormatTime = sec => {
         return Math.floor(sec / 60).toString().padStart(2, '0') + ':' + Math.floor(sec % 60).toString().padStart(2, '0')
@@ -81,12 +83,12 @@ export default function Result() {
                         <Typography variant="h6">
                             Took {getFormatTime(user.timeTaken) + ' mins'}
                         </Typography>
-                        <Button variant="contained"
-                                sx={{ mx: 1 }}
-                                size="small"
-                                onClick={submitScore}>
-                            Submit
-                        </Button>
+                        {/*<Button variant="contained"*/}
+                        {/*        sx={{ mx: 1 }}*/}
+                        {/*        size="small"*/}
+                        {/*        onClick={submitScore}>*/}
+                        {/*    Submit*/}
+                        {/*</Button>*/}
                         <Button variant="contained"
                                 sx={{ mx: 1 }}
                                 size="small"

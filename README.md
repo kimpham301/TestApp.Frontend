@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ![coverage](https://sonarcloud.io/api/project_badges/measure?project=kimpham301_TestApp.Frontend&metric=coverage#.svg)
 
 ## WebAPI
-[https://github.com/kimpham301/TestApp.WebApi](Go to WebApi Repo)
+(https://github.com/kimpham301/TestApp.WebApi)[Go to WebApi Repo]
 ## Available Scripts
 
 In the project directory, you can run:

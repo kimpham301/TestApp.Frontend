@@ -28,7 +28,7 @@ export default function Home(){
                                         Start
                                     </Button>
                                 </Link>
-                            {user.roles_id === 2 ? <Link to="/createTest">
+                            {user.roles_id === 2 ? <Link style={{ textDecoration: 'none'}} to="/createTest">
                                 <Button variant="text" size="large">
                                     Create Question
                                 </Button></Link> : null}

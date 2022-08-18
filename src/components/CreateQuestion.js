@@ -116,7 +116,7 @@ export default function CreateQuestion() {
                                 <Button type="submit" variant="contained" size="large">
                                     Submit
                                 </Button>
-                                <Link to="/home">
+                                <Link style={{ textDecoration: 'none'}} to="/home">
                                     <Button variant="text" size="small">
                                         Back to home
                                     </Button>

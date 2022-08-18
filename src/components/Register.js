@@ -28,7 +28,6 @@ const getNewModel = () => ({
 
               const userData = {
                   ...user,
-                  isLoggedIn: true,
                   user_id: res.data.user_id,
                   token: res.data.token,
                   roles_id: res.data.roles_id,
@@ -37,7 +36,7 @@ const getNewModel = () => ({
               setUser(userData);
 
               localStorage.setItem("user", JSON.stringify(userData));
-                navigate('/home')
+                navigate('/')
           } catch (error) {
               alert(error);
           }
